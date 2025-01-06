@@ -1,0 +1,38 @@
+#A Deployment provides declarative updates for Pods and ReplicaSets.
+#You can define Deployments to create new ReplicaSets, or to remove existing Deployments
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: app1
+  #thus labels are deployment related labels
+  labels:
+    app: app1
+    purpose: ingress
+spec:
+  selector: 
+    matchLabels:
+      app: app1
+    purpose: ingress
+  #pod defintion
+  template:
+    metadata:
+      labels:
+        app: app1
+        purpose: ingress
+    spec:
+    - name: app1
+      image: guru1188/app1:1.0
+------
+# This service is used to call nginx Pod
+apiVersion: v1
+kind: Service
+metadata: 
+  name: nginx
+spec: 
+  selectors:
+    app: app1
+    purpose: ingress
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
