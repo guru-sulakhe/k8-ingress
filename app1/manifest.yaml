@@ -49,6 +49,7 @@ metadata:
     alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
     alb.ingress.kubernetes.io/group.name: guru1188
 spec:
+  ingressClassName: alb
   rules:
   - host: "app1.guru97s.cloud" #ALB rule
     http:
