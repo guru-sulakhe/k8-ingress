@@ -43,13 +43,12 @@ kind: Ingress
 metadata:
   name: app1
   annotations: #Application Load Balancer will be created based on the annotations in AWS
-    kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
     alb.ingress.kubernetes.io/group.name: guru1188
 spec:
-  ingressClassName: alb
+  ingressClassName: alb #Load Balancer type as Application Load Balancer
   rules:
   - host: "app1.guru97s.cloud" #ALB rule
     http:
