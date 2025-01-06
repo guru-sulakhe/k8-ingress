@@ -12,7 +12,7 @@ spec:
   selector: 
     matchLabels:
       app: app1
-    purpose: ingress
+      purpose: ingress
   #pod defintion
   template:
     metadata:
