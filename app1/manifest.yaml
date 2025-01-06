@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata: 
-  name: nginx
+  name: app1
 spec: 
   selectors:
     app: app1
@@ -36,3 +36,27 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
+------
+#The Ingress lets you map traffic to different backends based on rules you define via the Kubernetes API.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app1
+  annotations: #Application Load Balancer will be created based on the annotations in AWS
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
+    alb.ingress.kubernetes.io/group.name: guru1188 
+spec:
+  rules:
+  - host: "app1.guru97s.cloud" #ALB rule
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/bar"
+        backend:
+          service:
+            name: app1 #ALB Target Group, your service name
+            port:
+              number: 80
