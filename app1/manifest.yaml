@@ -23,7 +23,7 @@ spec:
     - name: app1
       image: guru1188/app1:1.0
 ------
-# This service is used to call nginx Pod
+# This service is used to call app1 Pod
 apiVersion: v1
 kind: Service
 metadata: 
