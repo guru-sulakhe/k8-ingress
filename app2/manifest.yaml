@@ -1,0 +1,63 @@
+#A Deployment provides declarative updates for Pods and ReplicaSets.
+#You can define Deployments to create new ReplicaSets, or to remove existing Deployments
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: app2
+  #thus labels are deployment related labels
+  labels:
+    app: app2
+    purpose: ingress
+spec:
+  selector: 
+    matchLabels:
+      app: app2
+      purpose: ingress
+  #pod defintion
+  template:
+    metadata:
+      labels:
+        app: app2
+        purpose: ingress
+    spec:
+    - name: app2
+      image: guru1188/app2:1.0
+------
+# This service is used to call app2 Pod, based on the selectors i..e labels of app2 Pod
+apiVersion: v1
+kind: Service
+metadata: 
+  name: app2
+spec: 
+  selectors:
+    app: app2
+    purpose: ingress
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+------
+#The Ingress lets you map traffic to different backends based on rules you define via the Kubernetes API.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app2
+  annotations: #Application Load Balancer will be created based on the annotations in AWS
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
+    #this annotations is useful to keep only one ALB under guru1188 group. if you don't give this it will create another ALB.
+    alb.ingress.kubernetes.io/group.name: guru1188
+spec:
+  ingressClassName: alb #Load Balancer type as Application Load Balancer
+  rules:
+  - host: "app2.guru97s.cloud" #ALB rule
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/bar"
+        backend:
+          service:
+            name: app2 #ALB Target Group, your service name
+            port:
+              number: 80
