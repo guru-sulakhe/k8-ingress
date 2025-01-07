@@ -23,7 +23,7 @@ spec:
     - name: app1
       image: guru1188/app1:1.0
 ------
-# This service is used to call app1 Pod
+# This service is used to call app1 Pod, based on the selectors i..e labels of app1 Pod
 apiVersion: v1
 kind: Service
 metadata: 
