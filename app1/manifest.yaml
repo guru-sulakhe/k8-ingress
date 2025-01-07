@@ -46,6 +46,7 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
+    #this annotations is useful to keep only one ALB under guru1188 group. if you don't give this it will create another ALB.
     alb.ingress.kubernetes.io/group.name: guru1188
 spec:
   ingressClassName: alb #Load Balancer type as Application Load Balancer
