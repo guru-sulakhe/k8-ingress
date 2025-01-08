@@ -20,8 +20,9 @@ spec:
         app: app2
         purpose: ingress
     spec:
-    - name: app2
-      image: guru1188/app2:1.0
+      containers:
+      - name: app2
+        image: guru1188/app2:1.0
 ------
 # This service is used to call app2 Pod, based on the selectors i..e labels of app2 Pod
 apiVersion: v1
