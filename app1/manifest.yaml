@@ -45,6 +45,7 @@ metadata:
   name: app1
   annotations: #Application Load Balancer will be created based on the annotations in AWS
     alb.ingress.kubernetes.io/scheme: internet-facing
+    kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
     #this annotations is useful to keep only one ALB under guru1188 group. if you don't give this it will create another ALB.
@@ -63,5 +64,8 @@ spec:
             port:
               number: 80
 # here Annotations are used in Ingress in order to create external resource in AWS i,.e ALB(Application Load Balancer)
-# $ kubectl get pods 
+# $ kubectl get pods -n kube-system
+# $ kubectl get logs <aws-load-balancer-controller-66578vd711-l7epd> -n kube-system
 # $ kubectl get svc
+# $ kubectl get ingress
+# $ kubectl describe <ingress-name>
