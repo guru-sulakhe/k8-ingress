@@ -62,3 +62,6 @@ spec:
             name: app1 #ALB Target Group, your service name
             port:
               number: 80
+
+# $ kubectl get pods 
+# $ kubectl get svc
