@@ -62,6 +62,6 @@ spec:
             name: app1 #ALB Target Group, your service name
             port:
               number: 80
-
+# here Annotations are used in Ingress in order to create external resource in AWS i,.e ALB(Application Load Balancer)
 # $ kubectl get pods 
 # $ kubectl get svc
