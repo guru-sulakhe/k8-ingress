@@ -23,7 +23,7 @@ spec:
       containers:
       - name: app2
         image: guru1188/app2:1.0
-------
+---
 # This service is used to call app2 Pod, based on the selectors i..e labels of app2 Pod
 apiVersion: v1
 kind: Service
@@ -37,7 +37,7 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-------
+---
 #The Ingress lets you map traffic to different backends based on rules you define via the Kubernetes API.
 apiVersion: networking.k8s.io/v1
 kind: Ingress
